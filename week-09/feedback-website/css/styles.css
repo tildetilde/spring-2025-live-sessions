@@ -90,7 +90,6 @@ body {
 :focus-visible {
   outline: var(--focus-outline);
   outline-offset: 2px;
-  border: 1px solid red;
   border-radius: 2px;
 }
 
@@ -825,25 +824,5 @@ footer {
   .accordion-icon::after,
   .accordion-content {
     transition: none;
-  }
-}
-
-/* Safari keyboard navigation notice */
-.safari-notice {
-  display: none;
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  color: #856404;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
-  text-align: center;
-}
-
-@media not all and (min-resolution: 0.001dpcm) {
-  @supports (-webkit-appearance: none) {
-    .safari-notice {
-      display: block;
-    }
   }
 }
