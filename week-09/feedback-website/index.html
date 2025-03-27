@@ -7,7 +7,49 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <p>This is the starting point.</p>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header id="header">
+      <div class="header-content">
+        <h1>Website Feedback</h1>
+        <nav role="navigation" aria-label="Main menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section id="banner" role="banner">
+        <img src="assets/banner.jpg" alt="" role="presentation" />
+      </section>
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+          Feedback is great tool for behavior change. It helps us to understand
+          how we are doing and what we can do to improve. We would love to hear
+          from you about your experience with our website. Please take a few
+          minutes to fill out the form below.
+        </p>
+        <div class="form-controls intro-section">
+          <button id="intro-continue" type="button" class="submit-button">
+            Continue
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="footer-content">
+        <nav role="navigation" aria-label="Footer menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
 
     <script src="js/main.js"></script>
   </body>
