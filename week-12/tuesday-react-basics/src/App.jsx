@@ -1,6 +1,9 @@
 import Card from "./components/Card"
+import birds from "./data/birds.json"
 
 import "./App.css"
+
+console.log(birds)
 
 const App = () => {
   return (
@@ -14,6 +17,15 @@ const App = () => {
         title="My second card"
         text="My second text"
       />
+      {birds.birds.map((bird) => {
+        return (
+          <Card
+            key={bird.name}
+            title={bird.name}
+            text={bird.tags.join(", ")}
+          />
+        )
+      })}
     </>
   )
 }
