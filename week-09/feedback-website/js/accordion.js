@@ -40,8 +40,8 @@ function initAccordion() {
     });
 
     button.addEventListener("click", () => {
-      const targetID = button.getAttribute("aria-controls");
-      const targetPanel = document.getElementById(targetID);
+      const targetId = button.getAttribute("aria-controls");
+      const targetPanel = document.getElementById(targetId);
       togglePanel(button, targetPanel);
     });
   });
