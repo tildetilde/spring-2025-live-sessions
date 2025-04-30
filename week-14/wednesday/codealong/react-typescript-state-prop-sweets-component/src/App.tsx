@@ -1,7 +1,9 @@
-import Card from './components/Card'
-import './App.css'
+import Card from "./components/Card";
+import "./App.css";
 
 const App = () => {
+
+const handleReviewSubmit = () => {
 
   return (
     <main className="app">
@@ -26,7 +28,7 @@ const App = () => {
         />
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default App
+export default App;

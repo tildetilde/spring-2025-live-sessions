@@ -1,12 +1,16 @@
-import './Card.css';
+import "./Card.css";
 
+interface CardProps {
+  title: string;
+  description: string;
+  icon: string;
+  coloe: "purple" | "teal" | "coral";
+  onSelect: () => void;
+}
 
-const Card = ({ title, description, icon, color }) => {
+const Card = ({ title, description, icon, color, onSelect }) => {
   return (
-    <div
-      className={`card ${color}`}
-
-    >
+    <div className={`card ${color}`} onClick={onSelect}>
       <img src={icon} alt={`${title} icon`} className="card-icon" />
       <h2>{title}</h2>
       <p>{description}</p>
