@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+import flowerData from "./data/flowers.json"
+
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -15,6 +14,25 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello Technigo! ❤️")
 });
+
+// endpoint for getting all flowers
+app.get("/flowers", (req, res) => {
+  res.json(flowerData)
+})
+
+// endpoint for gettin one flower
+app.get("/flowers/:id", (req, res) => {
+
+  // be aware! The id that comes from the param is of type string. and in our json it is of type number. You have to turn them into the same type before you can compare them. trun a string to a number by adding + 👇
+  const flower = flowerData.find((flower) => flower.id === +req.params.id)
+
+  // tiny error handling if we get an id that doesnt exist in our data
+  if (!flower) {
+    return res.status(404).json({ error: 'flower not found' })
+  }
+
+  res.json(flower)
+})
 
 // Start the server
 app.listen(port, () => {
