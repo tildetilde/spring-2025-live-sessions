@@ -10,12 +10,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+// TODO: add documentation of the API here with express-list-endpoints
 app.get("/", (req, res) => {
   res.send("Hello Technigo! ❤️")
 });
 
 // endpoint for getting all flowers
+// TODO: add query params to be able to filter on color or sort by name
 app.get("/flowers", (req, res) => {
   res.json(flowerData)
 })
