@@ -1,68 +1,66 @@
 function initAccordion() {
-  const accordion = document.querySelector('.accordion');
+  const accordion = document.querySelector(".accordion");
   if (!accordion) return;
 
-  const buttons = accordion.querySelectorAll('.accordion-button');
+  const buttons = accordion.querySelectorAll(".accordion-button");
 
-  buttons.forEach((button, index) => {
-    button.addEventListener('keydown', (event) => {
-      const targetId = button.getAttribute('aria-controls');
-      const targetPanel = document.getElementById(targetId);
+  buttons.forEach(button, (index) => {
+    button.addEventListener("keydown", (event) => {
+      const targetID = button.getAttribute("aria-controls");
+      const targetPanel = document.getElementById(targetID);
 
       switch (event.key) {
-        case 'ArrowDown':
-        case 'ArrowRight':
+        case "ArrowDown":
+        case "ArrowRight":
           event.preventDefault();
           const nextButton = buttons[(index + 1) % buttons.length];
           nextButton.focus();
           break;
-        case 'ArrowUp':
-        case 'ArrowLeft':
+        case "ArrowUp":
+        case "ArrowLeft":
           event.preventDefault();
           const prevButton =
             buttons[(index - 1 + buttons.length) % buttons.length];
           prevButton.focus();
           break;
-        case 'Home':
+        case "Home":
           event.preventDefault();
           buttons[0].focus();
           break;
-        case 'End':
+        case "End":
           event.preventDefault();
           buttons[buttons.length - 1].focus();
           break;
-        case ' ':
-        case 'Enter':
+        case " ":
+        case "Enter":
           event.preventDefault();
           togglePanel(button, targetPanel);
           break;
       }
     });
 
-    button.addEventListener('click', () => {
-      const targetId = button.getAttribute('aria-controls');
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("aria-controls");
       const targetPanel = document.getElementById(targetId);
       togglePanel(button, targetPanel);
     });
   });
 
   function togglePanel(button, panel) {
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
     const newExpandedState = !isExpanded;
-
-    button.setAttribute('aria-expanded', newExpandedState);
+    button.setAttribute("aria-expanded", newExpandedState);
 
     if (newExpandedState) {
       panel.hidden = false;
 
       requestAnimationFrame(() => {
-        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.maxHeight = panel.scrollHeight + "px";
       });
     } else {
-      panel.style.maxHeight = '0';
-
+      panel.style.maxHeight = "0";
       panel.addEventListener(
-        'transitionend',
+        "transitionend",
         () => {
           panel.hidden = true;
         },
@@ -72,4 +70,4 @@ function initAccordion() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initAccordion);
+document.addEventListener("DOMContentLoaded", initAccordion);
