@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import listEndpoints from 'express-list-endpoints'
 
 import flowerData from "./data/flowers.json"
 
@@ -12,19 +13,30 @@ app.use(express.json());
 
 // TODO: add documentation of the API here with express-list-endpoints
 app.get("/", (req, res) => {
-  res.send("Hello Technigo! ❤️")
+  const endpoints = listEndpoints(app)
+  res.json({
+    message: "Welcome to the Flower API",
+    endpoints: endpoints
+  })
+
 });
 
 // endpoint for getting all flowers
 // TODO: add query params to be able to filter on color or sort by name
 app.get("/flowers", (req, res) => {
 
-  const { color, botanicalFamily } = req.query
+  const { color, symbol } = req.query
 
   let filteredFlowers = flowerData
 
   if (color) {
     filteredFlowers = filteredFlowers.filter(flower => flower.color.toLowerCase() === color.toLowerCase())
+  }
+
+  if (symbol) {
+    filteredFlowers = filteredFlowers.filter(flower =>
+      flower.symbolism.some(word => word.toLowerCase() === symbol.toLowerCase())
+    )
   }
 
   res.json(filteredFlowers)
