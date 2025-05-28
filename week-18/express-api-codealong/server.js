@@ -17,7 +17,31 @@ app.get("/", (req, res) => {
 
 // endpoint for getting all flowers
 app.get("/flowers", (req, res) => {
-  res.json(flowerData);
+  const { color, size, isSpotted } = req.query;
+
+  let filteredFlowers = flowerData;
+
+  if (color) {
+    filteredFlowers = filteredFlowers.filter(
+      (flower) => flower.color.toLowerCase() === color.toLowerCase()
+    );
+  }
+
+  if (size) {
+    filteredFlowers = filteredFlowers.filter(
+      (flower) => flower.size.toLowerCase() === size.toLowerCase()
+    );
+  }
+
+  if (isSpotted !== undefined) {
+    // Convert query string to boolean
+    const spottedBool = isSpotted === "true";
+    filteredFlowers = filteredFlowers.filter(
+      (flower) => flower.isSpotted === spottedBool
+    );
+  }
+
+  res.json(filteredFlowers);
 });
 
 //endpoint for getting a specific flower by id
