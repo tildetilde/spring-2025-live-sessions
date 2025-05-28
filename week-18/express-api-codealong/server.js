@@ -18,12 +18,20 @@ app.get("/", (req, res) => {
 // endpoint for getting all flowers
 // TODO: add query params to be able to filter on color or sort by name
 app.get("/flowers", (req, res) => {
-  res.json(flowerData)
+
+  const { color, botanicalFamily } = req.query
+
+  let filteredFlowers = flowerData
+
+  if (color) {
+    filteredFlowers = filteredFlowers.filter(flower => flower.color.toLowerCase() === color.toLowerCase())
+  }
+
+  res.json(filteredFlowers)
 })
 
 // endpoint for gettin one flower
 app.get("/flowers/:id", (req, res) => {
-
   // be aware! The id that comes from the param is of type string. and in our json it is of type number. You have to turn them into the same type before you can compare them. trun a string to a number by adding + 👇
   const flower = flowerData.find((flower) => flower.id === +req.params.id)
 
