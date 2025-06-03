@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
-import flowerData from "./flowers.json";
 
-// PORT=9000 npm start
+import listEndpoints from "express-list-endpoints";
+
+import flowerData from "./data/flowers.json";
+
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -10,14 +12,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+// TODO: add documentation of the API here with express-list-endpoints
 app.get("/", (req, res) => {
-  res.send("Hello Technigo! :)");
+  const endpoints = listEndpoints(app);
+  res.json({
+    message: "Welcome to the Flower API",
+    endpoints: endpoints,
+  });
 });
 
 // endpoint for getting all flowers
+// TODO: add query params to be able to filter on color or sort by name
 app.get("/flowers", (req, res) => {
-  const { color, size, isSpotted } = req.query;
+  const { color, symbol } = req.query;
 
   let filteredFlowers = flowerData;
 
@@ -27,28 +34,27 @@ app.get("/flowers", (req, res) => {
     );
   }
 
-  if (size) {
-    filteredFlowers = filteredFlowers.filter(
-      (flower) => flower.size.toLowerCase() === size.toLowerCase()
-    );
-  }
-
-  if (isSpotted !== undefined) {
-    // Convert query string to boolean
-    const spottedBool = isSpotted === "true";
-    filteredFlowers = filteredFlowers.filter(
-      (flower) => flower.isSpotted === spottedBool
+  if (symbol) {
+    filteredFlowers = filteredFlowers.filter((flower) =>
+      flower.symbolism.some(
+        (word) => word.toLowerCase() === symbol.toLowerCase()
+      )
     );
   }
 
   res.json(filteredFlowers);
 });
 
-//endpoint for getting a specific flower by id
+// endpoint for gettin one flower
 app.get("/flowers/:id", (req, res) => {
-  const flower = flowerData.find(
-    (flower) => flower.id === Number(req.params.id)
-  );
+  // be aware! The id that comes from the param is of type string. and in our json it is of type number. You have to turn them into the same type before you can compare them. trun a string to a number by adding + 👇
+  const flower = flowerData.find((flower) => flower.id === +req.params.id);
+
+  // tiny error handling if we get an id that doesnt exist in our data
+  if (!flower) {
+    return res.status(404).json({ error: "flower not found" });
+  }
+
   res.json(flower);
 });
 
